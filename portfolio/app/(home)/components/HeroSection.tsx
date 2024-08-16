@@ -13,8 +13,10 @@ export default function Intro() {
             <p>
                 I Am A Developer From Canada
             </p>
-            <Link href={"mailto:collinkan@gmail.com"}>
-                Contact Me
+            <Link href={"mailto:collinkan@gmail.com"} className='inline-block'>
+                <h1 className='text-3x1 font-bold'>
+                    Contact Me
+                </h1>
             </Link>
         </div>
     </div>
