@@ -52,6 +52,15 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        synthBG:'#2e2157',        //dark blue-grey
+        synthGrid: '#2a3459',     //lighter blue-grey
+        synthText: '#d3d3d3',     //light grey
+        synthTeal: '#2de2e6',
+        synthPink: '#fe53bb',
+        synthYellow: '#f5d300',
+        synthGreen: '#00ff41',
+        synthOrange: '#ff6c11',
+        synthRed: '#fd1d53',
       },
       borderRadius: {
         lg: "var(--radius)",
