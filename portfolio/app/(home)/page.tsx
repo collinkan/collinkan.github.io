@@ -1,16 +1,18 @@
 import React from "react";
 
 import Navbar from "./components/Navbar"
-import Intro from "./components/HeroSection";
+import HeroSection from "./components/HeroSection";
 import Sunset from "./components/Sunset";
+import GridBackground from "./components/GridBackground";
 
 export default function page() {
   return (
-    <div className="min-h-screen bg-synthBG">
-      <div className="max-w-7x1 mx-auto">
+    <div className="h-screen bg-synthBG">
+      <div>
         <Sunset />
+        <GridBackground />
         <Navbar />
-        <Intro />
+        <HeroSection />
       </div>
     </div>
   )

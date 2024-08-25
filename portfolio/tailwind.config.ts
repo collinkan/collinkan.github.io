@@ -55,6 +55,7 @@ const config = {
         synthBG:'#2e2157',        //dark blue-grey
         synthGrid: '#2a3459',     //lighter blue-grey
         synthText: '#d3d3d3',     //light grey
+        synthTransparent: '#2e215710',      //opaque synthBG
         synthTeal: '#2de2e6',
         synthPink: '#fe53bb',
         synthYellow: '#f5d300',
@@ -83,7 +84,11 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("tailwindcss-3d"),
+    require("tailwindcss-dotted-background"),
+  ],
 } satisfies Config
 
 export default config
