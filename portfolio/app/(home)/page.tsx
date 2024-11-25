@@ -7,7 +7,7 @@ import GridBackground from "./components/GridBackground";
 
 export default function page() {
   return (
-    <div className="h-screen bg-synthBG">
+    <div className="h-[500vh] bg-synthBG">
       <div>
         <Sunset />
         <GridBackground />

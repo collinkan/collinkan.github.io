@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Intro() {
   return (
-    <div>
+    <div className='px-5 py-28'>
         <div>
             <h1>
                 Hello There 
@@ -11,7 +11,7 @@ export default function Intro() {
                 My Name is Collin Kan
             </h1>
             <p>
-                I Am A Developer From Canada
+                I am a Developer
             </p>
             <Link href={"mailto:collinkan@gmail.com"} className='inline-block'>
                 <h1 className='text-3x1 font-bold'>
