@@ -15,10 +15,10 @@ export default function Sunset() {
                     {divisions.map((division) => {
                         return (
                             <span>
-                                <span key={division} style={{top: `${division * (50/numDivisions) + 50}%`, height: 3 + division*0.5}} 
+                                <span key={`bar` + division} style={{top: `${division * (50/numDivisions) + 50}%`, height: 3 + division*0.5}} 
                                     className={`absolute inset-x-0 bg-synthBG`}>
                                 </span>
-                                <span key={division} style={{top: `${division * (50/numDivisions) + 50}%`, height: 1 + division*0.5}}
+                                <span key={`shine`+ division} style={{top: `${division * (50/numDivisions) + 50}%`, height: 1 + division*0.5}}
                                     className={`absolute inset-x-0 bg-synthPink blur-sm`}>
                                 </span>
                             </span>

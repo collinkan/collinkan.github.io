@@ -11,7 +11,7 @@ export default function Intro() {
                 My Name is Collin Kan
             </h1>
             <p>
-                I am a Developer
+                Insert about me here
             </p>
             <Link href={"mailto:collinkan@gmail.com"} className='inline-block'>
                 <h1 className='text-3x1 font-bold'>

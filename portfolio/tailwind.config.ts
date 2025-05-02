@@ -62,6 +62,7 @@ const config = {
         synthGreen: '#00ff41',
         synthOrange: '#ff6c11',
         synthRed: '#fd1d53',
+        synthBlack: '#0d0221'
       },
       borderRadius: {
         lg: "var(--radius)",
