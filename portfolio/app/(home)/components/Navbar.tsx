@@ -1,10 +1,40 @@
 import React from "react";
 
 import Link from "next/link";
-
 import { SiLinkedin, SiGithub } from "react-icons/si";
 
-export default function page() {
+
+export type Gradient = 'bg-gradientAbout' | 'bg-gradientSkills' | 'bg-gradientExp'
+
+type NavbarProps = {
+    onChange: (newGradient: Gradient) => void
+}
+
+export default function Navbar({ onChange }: NavbarProps) {
+    const sections = [
+        {
+            label: "About Me",
+            href: "#about-me",
+            textAlign: "text-left",
+            textOrigin: 'origin-left',
+            newGradient: "bg-gradientAbout"
+        },
+        {
+            label: "Skills",
+            href: "#skills",
+            textAlign: "text-center",
+            textOrigin: 'origin-center',
+            newGradient: "bg-gradientSkills"
+        },
+        {
+            label: "Experience",
+            href: "#experience",
+            textAlign: "text-right",
+            textOrigin: 'origin-right',
+            newGradient: "bg-gradientExp"
+        }
+    ]
+
     const socials = [
         {
             link: "https://www.linkedin.com/in/collinkan",
@@ -19,31 +49,33 @@ export default function page() {
     ]
 
     return (
-        <nav className="p-4 w-full fixed flex justify-between items-center shadow-lg shadow-synthBG/50 bg-synthTransparent backdrop-blur-md text-synthText">
+        <nav className="p-4 w-full fixed flex justify-between items-center shadow-lg shadow-synthBlack/15 bg-synthTransparent backdrop-blur-md text-synthText">
             <h1 className="px-8 w-1/3 text-2xl font-bold">
                 Collin Kan
             </h1>
 
-            <div className="w-1/3 h-auto overflow-auto flex justify-between items-center border border-synthTransparent/20 bg-[#1a1a1a2a] px-10 py-4 rounded-3xl text-synthText">
-                <a href="#about-me" className="w-1/3 size-auto text-left whitespace-nowrap cursor-pointer hover:scale-125 transition-all">
-                    About Me
-                </a>
-                <a href="#skills" className="w-1/3 text-center cursor-pointer hover:scale-125 transition-all">
-                    Skills
-                </a>
-                <a href="#experience" className="w-1/3 text-right cursor-pointer hover:scale-125 transition-all">
-                    Experience
-                </a>
-            </div>
+            <span className="w-1/3 h-auto flex justify-between items-center border border-synthTransparent/20 bg-synthTransparent px-10 py-4 rounded-3xl text-synthText">
+                {sections.map((section, index) => {
+                    return (
+                        <a
+                            key={index}
+                            href={section.href}
+                            className={`w-1/3 ${section.textAlign} ${section.textOrigin} cursor-pointer hover:scale-125 transition-all ease-in-out`}
+                            onClick={() => onChange(section.newGradient as Gradient)}
+                        >
+                            {section.label}
+                        </a>
+                    )
+                })}
+            </span>
 
-            <span className="px-8 w-1/3 flex justify-end items-center gap-5">
+            <span className="px-8 w-1/3 flex justify-end items-center gap-10">
                 {socials.map((social, index) => {
                     const Icon = social.Icon
 
                     return (
-                        <Link className="group" href={social.link} key={index} aria-label={social.label}>
-                            <span className="absolute w-5 h-5 bg-synthTeal opacity-60 blur-sm rounded-lg group-hover:scale-150 transition-all"></span>
-                            <Icon className="relative w-5 h-5 group-hover:scale-125 transition-all" />
+                        <Link className="group scale-150" href={social.link} key={index} aria-label={social.label}>
+                            <Icon className="relative w-5 h-5 group-hover:scale-125 transition-transform" />
                         </Link>
                     )
                 })}
