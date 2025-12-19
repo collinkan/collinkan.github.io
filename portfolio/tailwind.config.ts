@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -52,7 +52,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        synthBG:'#2e2157',        //dark blue-grey
+        synthBG: '#2e2157',        //dark blue-grey
         synthGrid: '#2a3459',     //lighter blue-grey
         synthText: '#d3d3d3',     //light grey
         synthTransparent: '#2e215710',      //opaque synthBG
@@ -63,6 +63,12 @@ const config = {
         synthOrange: '#ff6c11',
         synthRed: '#fd1d53',
         synthBlack: '#0d0221'
+      },
+      backgroundImage: {
+        gradientSun:    'linear-gradient(to bottom, #f5d300, #ff6c11, #fd1d53)',
+        gradientAbout:  'linear-gradient(to bottom, #fd1d53, #2e2157, #2e215710)',
+        gradientSkills: 'linear-gradient(to bottom, #0d0221, #2e215710, #2e2157)',
+        gradientExp:    'linear-gradient(to bottom, #fd1d53, #fe53bb, #2de2e6)'
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -78,10 +84,16 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "cell-ripple": {
+          "0%": { opacity: "0.4", borderColor: "#2de2e6" },
+          "50%": { opacity: "0.8", borderColor: "#2de2e6" },
+          "100%": { opacity: "0.4", borderColor: "#2de2e6" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "cell-ripple": "cell-ripple var(--duration, 200ms) ease-out var(--delay, 0ms) 1 normal none",
       },
     },
   },
