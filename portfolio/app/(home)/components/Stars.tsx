@@ -19,7 +19,7 @@ export default function Stars() {
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
+      size: Math.random() * 3 + 3,
       delay: Math.random() * 2,
     })).filter(star => !(star.x > 40 && star.x < 60 && star.y > 5 && star.y < 30))
     setStars(newStars)
@@ -36,14 +36,14 @@ export default function Stars() {
             top: `${star.y}%`,
             width: `${star.size}px`,
             height: `${star.size}px`,
-            clipPath: 'polygon(50% 0%, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0% 50%, 25% 25%)',
+            clipPath: 'polygon(50% 0%,68% 32%, 100% 50%, 68% 68%, 50% 100%, 32% 68%, 0% 50%, 32% 32%)',
           }}
           animate={{
             opacity: [0.2, 1, 0.2],
             scale: [0.8, 1.2, 0.8],
           }}
           transition={{
-            duration: 2 + Math.random() * 2,
+            duration: 2 + Math.random() * 10,
             repeat: Infinity,
             delay: star.delay,
           }}
