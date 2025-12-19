@@ -1,24 +1,21 @@
-import Link from 'next/link'
 import React from 'react'
 
 export default function Intro() {
-  return (
-    <div className='px-5 py-28'>
-        <div>
-            <h1>
-                Hello There 
-                <br /> 
-                My Name is Collin Kan
-            </h1>
-            <p>
-                Insert about me here
-            </p>
-            <Link href={"mailto:collinkan@gmail.com"} className='inline-block'>
-                <h1 className='text-3x1 font-bold'>
-                    Contact Me
+    return (
+        <div className='absolute pointer-events-none px-20 py-40 text-synthText'>
+            <div className='w-[30vw] text-wrap'>
+                <h1 className='font-semibold text-5xl'>
+                    Hey, I'm Collin
                 </h1>
-            </Link>
+
+                <br />
+
+                <span className='text-3xl'>
+                    <p>
+                        I'm a Software Engineer currently based in the Greater Seattle Area.
+                    </p>
+                </span>
+            </div>
         </div>
-    </div>
-  )
+    )
 }
