@@ -66,9 +66,11 @@ const config = {
       },
       backgroundImage: {
         gradientSun:    'linear-gradient(to bottom, #f5d300, #ff6c11, #fd1d53)',
-        gradientAbout:  'linear-gradient(to bottom, #fd1d53, #2e2157, #2e215710)',
-        gradientSkills: 'linear-gradient(to bottom, #0d0221, #2e215710, #2e2157)',
-        gradientExp:    'linear-gradient(to bottom, #fd1d53, #fe53bb, #2de2e6)'
+        gradientAbout:  'linear-gradient(to bottom, #0d0221, #2e215710, #2e2157)',
+        gradientSkills:  'linear-gradient(to bottom, #0d0221, #2e215710, #2e2157)',
+        gradientExp:  'linear-gradient(to bottom, #0d0221, #2e215710, #2e2157)'
+        //gradientSkills: 'linear-gradient(to bottom, #fd1d53, #2e2157, #2e215710)',
+        //gradientExp:    'linear-gradient(to bottom, #fd1d53, #fe53bb, #2de2e6)'
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -85,9 +87,9 @@ const config = {
           to: { height: "0" },
         },
         "cell-ripple": {
-          "0%": { opacity: "0.4", borderColor: "#2de2e6" },
-          "50%": { opacity: "0.8", borderColor: "#2de2e6" },
-          "100%": { opacity: "0.4", borderColor: "#2de2e6" },
+          "0%": { borderColor: "#2de2e600" },
+          "50%": { borderColor: "#2de2e6" },
+          "100%": { borderColor: "#2de2e600" },
         },
       },
       animation: {

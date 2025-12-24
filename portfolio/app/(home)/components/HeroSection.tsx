@@ -12,7 +12,7 @@ export default function Intro() {
 
                 <span className='text-3xl'>
                     <p>
-                        I'm a Software Engineer currently based in the Greater Seattle Area.
+                        I'm a Software Engineer from Toronto, currently based in the Greater Seattle Area.
                     </p>
                 </span>
             </div>

@@ -2,14 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-
-type Star = {
-  id: number
-  x: number
-  y: number
-  size: number
-  delay: number
-}
+import { Star } from '../types/models/Star'
 
 export default function Stars() {
   const [stars, setStars] = useState<Star[]>([])
