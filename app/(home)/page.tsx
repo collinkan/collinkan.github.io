@@ -12,7 +12,7 @@ import { Gradient } from "./types/enums/Gradient";
 
 import { useState } from "react";
 
-export default function page() {
+export default function Page() {
   const [bgGradient, setBgGradient] = useState(Gradient.ABOUT)
   const [activeSection, setActiveSection] = useState(Section.ABOUT)
 

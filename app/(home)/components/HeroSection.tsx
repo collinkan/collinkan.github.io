@@ -5,14 +5,14 @@ export default function Intro() {
         <div className='absolute pointer-events-none px-20 py-40 text-synthText'>
             <div className='w-[30vw] text-wrap'>
                 <h1 className='font-semibold text-5xl'>
-                    Hey, I'm Collin
+                    Hey, I&#39;m Collin
                 </h1>
 
                 <br />
 
                 <span className='text-3xl'>
                     <p>
-                        I'm a Software Engineer from Toronto, currently based in the Greater Seattle Area.
+                        I&#39;m a Software Engineer from Toronto, currently based in the Greater Seattle Area.
                     </p>
                 </span>
             </div>
