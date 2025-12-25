@@ -18,7 +18,7 @@ export const DraggableCardBody = ({
 }: {
   className?: string;
   children?: React.ReactNode;
-  constraintsRef?: React.RefObject<Element>;
+  constraintsRef?: React.RefObject<HTMLDivElement | null>;
 }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
