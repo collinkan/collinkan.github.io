@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 
@@ -22,4 +21,3 @@ export default function GridBackground() {
         </div>
     );
 };
-

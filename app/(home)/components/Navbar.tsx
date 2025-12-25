@@ -1,5 +1,3 @@
-import React from "react";
-
 import Link from "next/link";
 import { SiLinkedin, SiGithub, SiBaserow } from "react-icons/si";
 import { Sections } from "../types/models/SectionProps";
