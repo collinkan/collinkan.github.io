@@ -1,16 +1,15 @@
-"use client";
-import React from "react";
+"use client"
+
+import { useState } from "react"
 
 import Navbar from "./components/Navbar"
-import HeroSection from "./components/HeroSection";
-import Sunset from "./components/Sunset";
-import GridBackground from "./components/GridBackground";
-import Stars from "./components/Stars";
-
-import { Section } from "./types/enums/Section";
-import { Gradient } from "./types/enums/Gradient";
-
-import { useState } from "react";
+import HeroSection from "./components/HeroSection"
+import Sunset from "./components/Sunset"
+import GridBackground from "./components/GridBackground"
+import Stars from "./components/Stars"
+import Cards from "./components/Cards"
+import { Section } from "./types/enums/Section"
+import { Gradient } from "./types/enums/Gradient"
 
 export default function Page() {
   const [bgGradient, setBgGradient] = useState(Gradient.ABOUT)
@@ -30,6 +29,8 @@ export default function Page() {
 
         {activeSection === Section.ABOUT && <GridBackground />}
         {activeSection === Section.ABOUT && <HeroSection />}
+
+        <Cards />
       </div>
     </div >
   )

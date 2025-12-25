@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Intro() {
     return (
         <div className='absolute pointer-events-none px-20 py-40 text-synthText'>
