@@ -4,8 +4,8 @@ import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect
 
 export default function GridBackground() {
     return (
-        <div>
-            <div className="absolute top-[35vh] bottom-[0vh] w-full h-auto perspective-[1250px] overflow-hidden">
+        <div className="fixed inset-0">
+            <div className="absolute top-[35vh] bottom-0 w-full h-auto perspective-[1250px] overflow-hidden">
                 <div
                     className="
                     absolute
