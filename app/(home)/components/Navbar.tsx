@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SiLinkedin, SiGithub, SiBaserow } from "react-icons/si";
+import { SiLinkedin, SiGithub } from "react-icons/si";
 import { Sections } from "../types/models/SectionProps";
 import { Section } from "../types/enums/Section";
 import { TextAlign } from "../types/enums/TextAlign";
@@ -32,7 +32,9 @@ export default function Navbar({ onChange }: NavbarProps) {
             backdrop-blur-md text-synthText"
         >
             <span className="px-8 w-1/3 flex justify-start items-center gap-10 ">
-                <SiBaserow className="scale-150" />
+                <a href="#about-me" className="font-bold text-xl tracking-widest cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out">
+                    Collin Kan
+                </a>
             </span>
 
             <span className="
@@ -49,7 +51,7 @@ export default function Navbar({ onChange }: NavbarProps) {
                             className={
                                 `w-1/3 
                                 ${index == 0 ? TextAlign.LEFT : index == numSections ? TextAlign.RIGHT : TextAlign.CENTER}
-                                cursor-pointer hover:scale-125 transition-all ease-in-out`
+                                cursor-pointer hover:scale-125 hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out`
                             }
                             onClick={() => onChange(section.gradient as Gradient, section.name as Section)}
                         >
@@ -64,8 +66,8 @@ export default function Navbar({ onChange }: NavbarProps) {
                     const Icon = social.Icon
 
                     return (
-                        <Link className="scale-150" href={social.link} key={index} aria-label={social.label}>
-                            <Icon className="relative w-5 h-5 group-hover:scale-125 transition-transform" />
+                        <Link className="scale-150 group" href={social.link} key={index} aria-label={social.label}>
+                            <Icon className="relative w-5 h-5 group-hover:scale-125 group-hover:text-synthTeal group-hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out" />
                         </Link>
                     )
                 })}

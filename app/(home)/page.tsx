@@ -26,9 +26,8 @@ export default function Page() {
         <Navbar onChange={handleSectionChange}/>
         <Stars />
         <Sunset />
-
-        {activeSection === Section.ABOUT && <GridBackground />}
-        {activeSection === Section.ABOUT && <HeroSection />}
+        <GridBackground />
+        <HeroSection />
 
         <Cards />
       </div>
