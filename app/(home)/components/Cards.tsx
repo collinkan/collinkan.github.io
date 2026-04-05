@@ -54,7 +54,7 @@ export default function Cards() {
     }
   ];
   return (
-    <DraggableCardContainer ref={containerRef} className="border-2 border-red-500 absolute top-[125vh] flex flex-wrap p-10 items-center justify-center overflow-clip gap-5">
+    <DraggableCardContainer ref={containerRef} className="relative flex flex-wrap py-20 px-10 min-h-[50vh] items-center justify-center overflow-clip gap-5">
       {items.map((item, index) => (
         <DraggableCardBody key={index} constraintsRef={containerRef} className="flex flex-col items-center justify-center w-[15%] rounded-2xl border border-white/10 shadow-lg cursor-grab active:cursor-grabbing">
           <img

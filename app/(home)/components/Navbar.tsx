@@ -1,15 +1,10 @@
 import Link from "next/link";
 import { SiLinkedin, SiGithub } from "react-icons/si";
 import { Sections } from "../types/models/SectionProps";
-import { Section } from "../types/enums/Section";
 import { TextAlign } from "../types/enums/TextAlign";
-import { Gradient } from "../types/enums/Gradient";
+import { animate } from "framer-motion";
 
-type NavbarProps = {
-    onChange: (newGradient: Gradient, newSection: Section) => void
-}
-
-export default function Navbar({ onChange }: NavbarProps) {
+export default function Navbar() {
     const socials = [
         {
             link: "https://www.linkedin.com/in/collinkan",
@@ -25,6 +20,22 @@ export default function Navbar({ onChange }: NavbarProps) {
 
     const numSections = Sections.length - 1
 
+    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
+        e.preventDefault();
+        const targetId = href.replace(/.*\#/, "");
+        const elem = document.getElementById(targetId);
+        if (elem) {
+            const style = window.getComputedStyle(elem);
+            const scrollMarginTop = parseFloat(style.scrollMarginTop) || 0;
+            const top = elem.getBoundingClientRect().top + window.scrollY - scrollMarginTop;
+            animate(window.scrollY, top, {
+                duration: 0.8,
+                ease: "easeInOut",
+                onUpdate: (latest) => window.scrollTo(0, latest)
+            });
+        }
+    };
+
     return (
         <nav className="
             fixed z-[999] p-4 w-full flex justify-between items-center 
@@ -32,7 +43,7 @@ export default function Navbar({ onChange }: NavbarProps) {
             backdrop-blur-md text-synthText"
         >
             <span className="px-8 w-1/3 flex justify-start items-center gap-10 ">
-                <a href="#about-me" className="font-bold text-xl tracking-widest cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out">
+                <a href="#about-me" onClick={(e) => handleScroll(e, "#about-me")} className="font-bold text-xl tracking-widest cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out">
                     Collin Kan
                 </a>
             </span>
@@ -48,12 +59,12 @@ export default function Navbar({ onChange }: NavbarProps) {
                         <a
                             key={index}
                             href={section.href}
+                            onClick={(e) => handleScroll(e, section.href)}
                             className={
                                 `w-1/3 
                                 ${index == 0 ? TextAlign.LEFT : index == numSections ? TextAlign.RIGHT : TextAlign.CENTER}
                                 cursor-pointer hover:scale-125 hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out`
                             }
-                            onClick={() => onChange(section.gradient as Gradient, section.name as Section)}
                         >
                             {section.name}
                         </a>
