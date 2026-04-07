@@ -9,11 +9,12 @@ export default function Experience() {
                     <h3 className="text-2xl font-semibold mb-2">Software Engineer</h3>
                     <p className="text-xl italic text-synthTeal mb-4">Visa Inc. • Bellevue, WA</p>
                     <ul className="list-disc pl-4 text-lg space-y-2">
-                        <li>Automated GitHub repository setups with Actions and webhooks, saving 6+ hours weekly.</li>
-                        <li>Built security assessment automations in Groovy and Spring Boot, cutting manual checks by 90%.</li>
-                        <li>Developed NLP-driven Jira automations to filter unsupported DevOps tickets, saving 40+ hours a week.</li>
-                        <li>Created TypeScript deployment automations for Kubernetes, eliminating 25+ hours of manual deployments.</li>
-                        <li>Boosted developer velocity by resolving 15+ infrastructure issues weekly across K8s, Jenkins, and GitHub.</li>
+                        <li>Architected an autonomous, LangChain-powered Kubernetes agent for dynamic root cause analysis of pod failures.</li>
+                        <li>Engineered a continuous-learning RAG pipeline with Pinecone for automated K8s remediations and HITL escalations.</li>
+                        <li>Standardized CI/CD workflows across 100+ repositories using GitHub Actions, saving 6+ hours weekly.</li>
+                        <li>Built a Spring Boot security assessment service leveraging MCPs to eliminate 90% of manual deployment checks.</li>
+                        <li>Deployed an AI-driven Jira routing system using Atlassian MCP and LLMs to automate issue triage, saving 40+ hours a week.</li>
+                        <li>Scaled high-availability infrastructure across Kubernetes, Jenkins, and ArgoCD, boosting delivery velocity by 35%.</li>
                     </ul>
                 </div>
             ),
@@ -25,9 +26,10 @@ export default function Experience() {
                     <h3 className="text-2xl font-semibold mb-2">Software Engineer</h3>
                     <p className="text-xl italic text-synthTeal mb-4">Deloitte • Gilbert, AZ</p>
                     <ul className="list-disc pl-4 text-lg space-y-2">
-                        <li>Built front-end features for the Veterans Benefits Management System using React and TypeScript.</li>
-                        <li>Integrated auto-refresh capabilities into the Exam Scheduling Assistant, reducing user errors by 15%.</li>
-                        <li>Implemented robust autosave mechanics, preventing data loss and boosting claimant efficiency by 30%.</li>
+                        <li>Modernized the Veterans Benefits Management System by migrating legacy interfaces to a decoupled React architecture.</li>
+                        <li>Built a real-time data synchronization pipeline for the Exam Scheduling Assistant, reducing data staleness by 15%.</li>
+                        <li>Developed robust session recovery and autosave mechanisms in React and TypeScript, boosting user efficiency by 30%.</li>
+                        <li>Implemented comprehensive client-side telemetry and error logging to accelerate incident resolution and observability.</li>
                     </ul>
                 </div>
             ),
@@ -39,9 +41,9 @@ export default function Experience() {
                     <h3 className="text-2xl font-semibold mb-2">Software Engineer Intern</h3>
                     <p className="text-xl italic text-synthTeal mb-4">Amazon • Toronto, ON, Canada</p>
                     <ul className="list-disc pl-4 text-lg space-y-2">
-                        <li>Designed a Lambda/DynamoDB pipeline processing 1M+ daily global fulfillment events for real-time observability.</li>
-                        <li>Engineered a self-healing service using AWS StepFunctions and CloudWatch, reducing production failures by 80%.</li>
-                        <li>Streamlined cross-team workflows with TypeScript automations, removing 8+ hours of weekly overhead.</li>
+                        <li>Designed a Lambda and DynamoDB pipeline to process 1M+ daily fulfillment events across global regions for real-time observability.</li>
+                        <li>Built a self-healing AWS StepFunctions and CloudWatch service, cutting production failures by 80% and improving response times by 40%.</li>
+                        <li>Streamlined cross-team workflows with TypeScript automations, eliminating 8+ hours of weekly overhead.</li>
                     </ul>
                 </div>
             ),
@@ -53,8 +55,9 @@ export default function Experience() {
                     <h3 className="text-2xl font-semibold mb-2">Software Engineer Intern</h3>
                     <p className="text-xl italic text-synthTeal mb-4">SequoiaDB • Markham, ON, Canada</p>
                     <ul className="list-disc pl-4 text-lg space-y-2">
-                        <li>Created a Go-based monitoring API for 300+ DB clusters, improving legacy Python service performance by 38%.</li>
-                        <li>Architected a Bash orchestration layer for multi-VM provisioning, saving 10+ hours a week.</li>
+                        <li>Developed a high-performance Go monitoring API for 300+ DB clusters, improving legacy Python runtimes by 38%.</li>
+                        <li>Architected a Bash orchestration layer for multi-VM provisioning, saving 10+ hours of manual setup weekly.</li>
+                        <li>Built an automated API integration testing framework using Karate, eliminating 15+ hours of manual regression testing per week.</li>
                     </ul>
                 </div>
             ),
@@ -75,7 +78,7 @@ export default function Experience() {
 
     return (
         <div id="experience" className="relative w-full pb-20 pointer-events-none scroll-mt-20">
-            <div className="pointer-events-auto">
+            <div>
                 <Timeline data={data} />
             </div>
         </div>

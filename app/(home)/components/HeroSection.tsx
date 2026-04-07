@@ -8,9 +8,12 @@ export default function Intro() {
 
                 <br />
 
-                <span className='text-3xl'>
+                <span className='text-3xl space-y-6 flex flex-col'>
                     <p>
-                        I&#39;m a Software Engineer from Toronto, currently based in the Greater Seattle Area.
+                        I&#39;m a Software Engineer specializing in automation, AI-driven distributed systems, and scalable backend architectures. 
+                    </p>
+                    <p>
+                        Originally from Toronto, I&#39;m currently based in the Greater Seattle Area.
                     </p>
                 </span>
             </div>
