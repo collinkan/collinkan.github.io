@@ -1,6 +1,9 @@
+import { Rajdhani } from "next/font/google";
+const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
+
 export default function Intro() {
     return (
-        <div id="about-me" className='relative min-h-screen flex flex-col pointer-events-none px-20 pt-40 pb-20 text-synthText'>
+        <div id="about-me" className={`relative min-h-screen flex flex-col pointer-events-none px-20 pt-40 pb-20 text-synthText ${rajdhani.className}`}>
             <div className='w-[30vw] text-wrap'>
                 <h1 className='font-semibold text-5xl'>
                     Hey, I&#39;m Collin
