@@ -13,13 +13,6 @@ export default function Sunset() {
 
     useEffect(() => {
         let rafId: number
-        let vw3 = window.innerWidth * 0.03
-        
-        const handleResize = () => {
-            vw3 = window.innerWidth * 0.03
-        }
-        window.addEventListener('resize', handleResize)
-        
         const animate = () => {
             const targetY = window.scrollY
 
@@ -31,7 +24,7 @@ export default function Sunset() {
                 sunGlowRef.current.style.transform = `translate3d(-50%, ${currentYSunGlow.current * 0.5}px, 0)`
             }
             if (pinkGlowRef.current) {
-                pinkGlowRef.current.style.transform = `translate3d(-50%, ${currentYPinkGlow.current * 0.5 - vw3}px, 0)`
+                pinkGlowRef.current.style.transform = `translate3d(-50%, ${currentYPinkGlow.current * 0.5 - 40}px, 0)`
             }
             if (sunRef.current) {
                 sunRef.current.style.transform = `translate3d(-50%, ${currentYSun.current * 0.5}px, 0)`
@@ -44,7 +37,6 @@ export default function Sunset() {
 
         return () => {
             cancelAnimationFrame(rafId)
-            window.removeEventListener('resize', handleResize)
         }
     }, [])
 
@@ -53,20 +45,20 @@ export default function Sunset() {
             {/* Sun glow effect */}
             <div
                 ref={sunGlowRef}
-                className='absolute left-1/2 w-[20vw] h-[20vw] rounded-full bg-gradientSun blur-md opacity-60 will-change-transform'
+                className='absolute left-1/2 w-[335px] h-[335px] rounded-full bg-gradientSun blur-md opacity-60 will-change-transform'
                 style={{ transform: 'translate3d(-50%, 0px, 0)' }}
             ></div>
 
             <div
                 ref={pinkGlowRef}
-                className='absolute left-1/2 w-[25vw] h-[25vw] rounded-full bg-synthPink blur-3xl opacity-30 will-change-transform'
+                className='absolute left-1/2 w-[450px] h-[450px] rounded-full bg-synthPink blur-3xl opacity-30 will-change-transform'
                 style={{ transform: 'translate3d(-50%, 0px, 0)' }}
             ></div>
 
             {/* Sun */}
             <div
                 ref={sunRef}
-                className='absolute left-1/2 w-[20vw] h-[20vw] rounded-full will-change-transform'
+                className='absolute left-1/2 w-[335px] h-[335px] rounded-full will-change-transform'
                 style={{ transform: 'translate3d(-50%, 0px, 0)' }}
             >
                 <span

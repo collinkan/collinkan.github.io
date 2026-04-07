@@ -4,6 +4,9 @@ import { Sections } from "../types/models/SectionProps";
 import { TextAlign } from "../types/enums/TextAlign";
 import { animate } from "framer-motion";
 
+import { Rajdhani } from "next/font/google";
+const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
+
 export default function Navbar() {
     const socials = [
         {
@@ -37,13 +40,13 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="
+        <nav className={`
             fixed z-[999] p-4 w-full flex justify-between items-center 
             shadow-lg shadow-synthBlack/15 bg-synthTransparent 
-            backdrop-blur-md text-synthText"
+            backdrop-blur-md text-synthText ${rajdhani.className}`}
         >
             <span className="px-8 w-1/3 flex justify-start items-center gap-10 ">
-                <a href="#about-me" onClick={(e) => handleScroll(e, "#about-me")} className="font-bold text-xl tracking-widest cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out">
+                <a href="#about-me" onClick={(e) => handleScroll(e, "#about-me")} className="font-bold text-3xl tracking-widest cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out">
                     Collin Kan
                 </a>
             </span>
@@ -51,7 +54,7 @@ export default function Navbar() {
             <span className="
                 w-1/3 h-auto flex justify-between items-center 
                 border border-synthTransparent/20 bg-synthTransparent 
-                px-10 py-4 rounded-3xl text-synthText 
+                px-10 py-4 rounded-3xl text-xl text-synthText 
                 [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000]"
             >
                 {Sections.map((section, index) => {
