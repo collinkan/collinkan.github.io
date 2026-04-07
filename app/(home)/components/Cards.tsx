@@ -54,19 +54,19 @@ export default function Cards() {
     }
   ];
   return (
-    <DraggableCardContainer ref={containerRef} className="relative flex flex-wrap py-20 px-10 min-h-[50vh] items-center justify-center overflow-clip gap-5">
-      {items.map((item, index) => (
-        <DraggableCardBody key={index} constraintsRef={containerRef} className="flex flex-col items-center justify-center w-[15%] rounded-2xl border border-white/10 shadow-lg cursor-grab active:cursor-grabbing">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="pointer-events-none relative z-10 h-40 w-40 object-contain"
-          />
-          <h3 className="mt-4 text-center text-2xl font-bold text-neutral-700 dark:text-neutral-300">
-            {item.title}
-          </h3>
-        </DraggableCardBody>
-      ))}
-    </DraggableCardContainer>
+      <DraggableCardContainer ref={containerRef} className="relative flex flex-wrap py-20 px-10 min-h-[50vh] items-center justify-center overflow-clip gap-5 z-10">
+        {items.map((item, index) => (
+          <DraggableCardBody key={index} constraintsRef={containerRef} className="flex flex-col items-center justify-center w-[15%] aspect-square p-4 rounded-2xl border border-white/10 shadow-lg cursor-grab active:cursor-grabbing">
+            <img
+              src={item.image}
+              alt={item.title}
+              className="pointer-events-none relative z-10 h-1/2 w-1/2 object-contain"
+            />
+            <h3 className="mt-4 text-center text-xs md:text-lg xl:text-2xl font-bold text-neutral-700 dark:text-neutral-300 line-clamp-1">
+              {item.title}
+            </h3>
+          </DraggableCardBody>
+        ))}
+      </DraggableCardContainer>
   );
 }

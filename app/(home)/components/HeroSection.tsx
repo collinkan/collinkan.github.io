@@ -10,10 +10,13 @@ export default function Intro() {
 
                 <span className='text-3xl space-y-6 flex flex-col'>
                     <p>
-                        I&#39;m a Software Engineer specializing in automation, AI-driven distributed systems, and scalable backend architectures. 
+                        I'm a Software Engineer specializing in automation, AI-driven distributed systems, and scalable backend architectures.
+                    </p> 
+                    <p>
+                        I also have experience in fullstack development, and have a passion for learning new skills and technologies, and building innovative solutions.
                     </p>
                     <p>
-                        Originally from Toronto, I&#39;m currently based in the Greater Seattle Area.
+                        Originally from Toronto, I'm currently based in the Greater Seattle Area.
                     </p>
                 </span>
             </div>
