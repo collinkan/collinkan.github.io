@@ -6,16 +6,18 @@ interface TimelineEntry {
   content: React.ReactNode;
 }
 
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+export const Timeline = ({ data, title = "Experience", subtitle }: { data: TimelineEntry[], title?: string, subtitle?: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const lightBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let rafId: number;
     let currentProgress = 0;
+    let targetProgress = 0;
     let absoluteTop = 0;
     let scrollDistance = 1;
     let windowHeight = window.innerHeight;
+    let isAnimating = false;
 
     const measure = () => {
       if (containerRef.current) {
@@ -28,44 +30,53 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       }
     };
 
-    window.addEventListener("resize", measure);
-    setTimeout(measure, 100);
-    measure();
-
     const updateAnimation = () => {
-      if (containerRef.current && lightBarRef.current) {
-        const currentScrollY = window.scrollY;
-        
-        const startY = windowHeight * 0.1;
-        const currentRectTop = absoluteTop - currentScrollY;
-        
-        let targetProgress = (startY - currentRectTop) / scrollDistance;
-        targetProgress = Math.max(0, Math.min(1, targetProgress));
-        
-        currentProgress += (targetProgress - currentProgress) * 0.08;
-        
+      if (!lightBarRef.current) return;
+      const diff = targetProgress - currentProgress;
+      if (Math.abs(diff) < 0.001) {
+        currentProgress = targetProgress;
         lightBarRef.current.style.transform = `scaleY(${currentProgress})`;
         lightBarRef.current.style.opacity = currentProgress > 0.01 ? "1" : "0";
+        isAnimating = false;
+        return;
       }
+      currentProgress += diff * 0.08;
+      lightBarRef.current.style.transform = `scaleY(${currentProgress})`;
+      lightBarRef.current.style.opacity = currentProgress > 0.01 ? "1" : "0";
       rafId = requestAnimationFrame(updateAnimation);
     };
-    
-    rafId = requestAnimationFrame(updateAnimation);
+
+    const onScroll = () => {
+      const startY = windowHeight * 0.1;
+      const currentRectTop = absoluteTop - window.scrollY;
+      targetProgress = Math.max(0, Math.min(1, (startY - currentRectTop) / scrollDistance));
+      if (!isAnimating) {
+        isAnimating = true;
+        rafId = requestAnimationFrame(updateAnimation);
+      }
+    };
+
+    window.addEventListener("resize", measure);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    setTimeout(() => { measure(); onScroll(); }, 100);
+    measure();
+
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
   return (
-    <div className="w-full font-sans px-20 text-synthText" ref={containerRef}>
+    <div className="w-full font-sans px-6 sm:px-12 md:px-20 text-synthText" ref={containerRef}>
       <div className="max-w-7xl py-20">
-        <h2 className="text-5xl mb-4 font-semibold max-w-4xl text-synthText">
-          Experience
+        <h2 className="text-3xl md:text-5xl mb-4 font-semibold max-w-4xl text-synthText pointer-events-auto">
+          {title}
         </h2>
-        <p className="text-synthText/80 text-sm md:text-base max-w-sm">
-          My journey as a software engineer.
-        </p>
+        {subtitle && (
+          <p className="text-synthText/80 text-sm md:text-base max-w-sm pointer-events-auto">{subtitle}</p>
+        )}
       </div>
 
       <div className="relative max-w-7xl pb-20">
@@ -75,16 +86,18 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-background flex items-center justify-center">
                 <div className="h-4 w-4 rounded-full bg-synthYellow border border-border p-2" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-synthText">
+              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-synthText pointer-events-auto">
                 {item.title}
               </h3>
             </div>
 
             <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-synthText">
+              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-synthText pointer-events-auto">
                 {item.title}
               </h3>
-              {item.content}
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5 pointer-events-auto select-text">
+                {item.content}
+              </div>
             </div>
           </div>
         ))}

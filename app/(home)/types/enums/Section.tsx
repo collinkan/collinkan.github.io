@@ -1,5 +1,6 @@
 export enum Section {
-    ABOUT = "About Me",
-    SKILL = "Skills",
-    EXP   = "Experience"
+    ABOUT     = "About Me",
+    EXP       = "Experience",
+    PROJECTS  = "Projects",
+    SKILL     = "Skills",
 }

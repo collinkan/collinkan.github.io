@@ -87,9 +87,9 @@ const config = {
           to: { height: "0" },
         },
         "cell-ripple": {
-          "0%": { borderColor: "#2de2e600" },
-          "50%": { borderColor: "#2de2e6" },
-          "100%": { borderColor: "#2de2e600" },
+          "0%":   { borderColor: "#2de2e600", boxShadow: "0 0 0px #2de2e600, inset 0 0 0px #2de2e600" },
+          "50%":  { borderColor: "#2de2e6",   boxShadow: "0 0 10px #2de2e644, inset 0 0 8px #2de2e633" },
+          "100%": { borderColor: "#2de2e600", boxShadow: "0 0 0px #2de2e600, inset 0 0 0px #2de2e600" },
         },
       },
       animation: {

@@ -57,6 +57,7 @@ export default function Sunset() {
 
             {/* Sun */}
             <div
+                id="sun-circle"
                 ref={sunRef}
                 className='absolute left-1/2 w-[335px] h-[335px] rounded-full will-change-transform'
                 style={{ transform: 'translate3d(-50%, 0px, 0)' }}
