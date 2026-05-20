@@ -1,11 +1,25 @@
 import Link from "next/link";
 import { SiLinkedin, SiGithub } from "react-icons/si";
 import { Sections } from "../types/models/SectionProps";
-import { TextAlign } from "../types/enums/TextAlign";
 import { animate } from "framer-motion";
 
 import { Rajdhani } from "next/font/google";
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
+
+const JinuineIcon = ({ className }: { className?: string }) => (
+    <span
+        className={className}
+        style={{
+            display: 'block',
+            backgroundColor: 'currentColor',
+            maskImage: 'url(/jinuine.svg)',
+            WebkitMaskImage: 'url(/jinuine.svg)',
+            maskSize: '132% 132%',
+            maskRepeat: 'no-repeat',
+            maskPosition: 'center',
+        }}
+    />
+)
 
 export default function Navbar() {
     const socials = [
@@ -18,10 +32,13 @@ export default function Navbar() {
             link: "https://github.com/collinkan",
             label: "GitHub",
             Icon: SiGithub
+        },
+        {
+            link: "https://jinuine.com",
+            label: "Jinuine",
+            Icon: JinuineIcon
         }
     ]
-
-    const numSections = Sections.length - 1
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, href: string) => {
         e.preventDefault();
@@ -41,21 +58,22 @@ export default function Navbar() {
 
     return (
         <nav className={`
-            fixed z-[999] p-4 w-full flex justify-between items-center 
-            shadow-lg shadow-synthBlack/15 bg-synthTransparent 
+            fixed z-[999] p-4 w-full flex justify-between items-center
+            shadow-lg shadow-synthBlack/15 bg-synthTransparent
             backdrop-blur-md text-synthText ${rajdhani.className}`}
         >
-            <span className="px-8 w-1/3 flex justify-start items-center gap-10 ">
+            <span className="flex-1 px-4 md:px-8 flex justify-start items-center">
                 <a href="#about-me" onClick={(e) => handleScroll(e, "#about-me")} className="font-bold text-3xl tracking-widest cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out">
                     Collin Kan
                 </a>
             </span>
 
             <span className="
-                w-1/3 h-auto flex justify-between items-center 
-                border border-synthTransparent/20 bg-synthTransparent 
-                px-10 py-4 rounded-3xl text-xl text-synthText 
-                [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000]"
+                hidden md:inline-flex h-auto items-center gap-10
+                bg-synthTransparent
+                px-10 py-4 rounded-3xl text-xl text-synthText
+                shadow-[2px_3px_8px_rgba(0,0,0,0.45)]
+                [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]"
             >
                 {Sections.map((section, index) => {
                     return (
@@ -63,11 +81,7 @@ export default function Navbar() {
                             key={index}
                             href={section.href}
                             onClick={(e) => handleScroll(e, section.href)}
-                            className={
-                                `w-1/3 
-                                ${index == 0 ? TextAlign.LEFT : index == numSections ? TextAlign.RIGHT : TextAlign.CENTER}
-                                cursor-pointer hover:scale-125 hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out`
-                            }
+                            className="cursor-pointer hover:text-synthTeal hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out"
                         >
                             {section.name}
                         </a>
@@ -75,13 +89,13 @@ export default function Navbar() {
                 })}
             </span>
 
-            <span className="px-8 w-1/3 flex justify-end items-center gap-10">
+            <span className="flex-1 px-4 md:px-8 flex justify-end items-center gap-6 md:gap-10">
                 {socials.map((social, index) => {
                     const Icon = social.Icon
 
                     return (
                         <Link className="scale-150 group" href={social.link} key={index} aria-label={social.label}>
-                            <Icon className="relative w-5 h-5 group-hover:scale-125 group-hover:text-synthTeal group-hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out" />
+                            <Icon className="relative w-5 h-5 group-hover:text-synthTeal group-hover:drop-shadow-[0_0_8px_theme('colors.synthTeal')] transition-all duration-300 ease-in-out" />
                         </Link>
                     )
                 })}

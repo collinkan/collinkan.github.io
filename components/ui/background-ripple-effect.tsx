@@ -36,7 +36,6 @@ export const BackgroundRippleEffect = ({
           cols={cols}
           cellSize={cellSize}
           borderColor='#2a3459'
-          fillColor="var(--cell-fill-color)"
           clickedCell={clickedCell}
           onCellClick={(row, col) => {
             setClickedCell({ row, col });
@@ -55,7 +54,7 @@ type DivGridProps = {
   cols: number;
   cellSize: number; // in pixels
   borderColor: string;
-  fillColor: string;
+  fillColor?: string;
   clickedCell: { row: number; col: number } | null;
   onCellClick?: (row: number, col: number) => void;
   interactive?: boolean;
@@ -92,48 +91,51 @@ const DivGrid = ({
   };
 
   return (
-    <div className={cn("relative z-[3]", className)} style={gridStyle}>
-      {cells.map((idx) => {
-        const rowIdx = Math.floor(idx / cols);
-        const colIdx = idx % cols;
-        const distance = clickedCell
-          ? Math.hypot(clickedCell.row - rowIdx, clickedCell.col - colIdx)
-          : 0;
-        const delay = clickedCell ? Math.max(0, distance * 55) : 0; // ms
-        const duration = 200 + distance * 80; // ms
+    <>
+      <style>{`
+        .cell:hover {
+          border-color: #2de2e6 !important;
+          z-index: 10;
+          filter: drop-shadow(0 0 4px #2de2e6) drop-shadow(0 0 8px rgba(45, 226, 230, 0.6));
+        }
+      `}</style>
+      <div className={cn("relative z-[3]", className)} style={gridStyle}>
+        {cells.map((idx) => {
+          const rowIdx = Math.floor(idx / cols);
+          const colIdx = idx % cols;
+          const distance = clickedCell
+            ? Math.hypot(clickedCell.row - rowIdx, clickedCell.col - colIdx)
+            : 0;
+          const delay = clickedCell ? Math.max(0, distance * 55) : 0; // ms
+          const duration = 200 + distance * 80; // ms
 
-        const style: CellStyle = clickedCell
-          ? {
-              "--delay": `${delay}ms`,
-              "--duration": `${duration}ms`,
-            }
-          : {};
+          const style: CellStyle = clickedCell
+            ? {
+                "--delay": `${delay}ms`,
+                "--duration": `${duration}ms`,
+              }
+            : {};
 
-        return (
-          <div
-            key={idx}
-            className={cn(
-              "cell relative border-[2px] duration-200 dark:shadow-[0px_0px_40px_1px_var(--cell-shadow-color)_inset]",
-              clickedCell && "animate-cell-ripple [animation-fill-mode:none]",
-              !interactive && "pointer-events-none",
-            )}
-            style={{
-              backgroundColor: '#0d0221',
-              borderColor: borderColor,
-              ...style,
-            }}
-            onClick={
-              interactive ? () => onCellClick?.(rowIdx, colIdx) : undefined
-            }
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "#2de2e6";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = borderColor;
-            }}
-          />
-        );
-      })}
-    </div>
+          return (
+            <div
+              key={idx}
+              className={cn(
+                "cell relative border-[2px] transition-[border-color,filter] duration-200",
+                clickedCell && "animate-cell-ripple [animation-fill-mode:none]",
+                !interactive && "pointer-events-none",
+              )}
+              style={{
+                backgroundColor: fillColor,
+                borderColor: borderColor,
+                ...style,
+              }}
+              onClick={
+                interactive ? () => onCellClick?.(rowIdx, colIdx) : undefined
+              }
+            />
+          );
+        })}
+      </div>
+    </>
   );
 };

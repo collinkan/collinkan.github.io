@@ -1,0 +1,18 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="irisMask">
+      <rect width="1024" height="1024" fill="black"/>
+      <path d="M665,516 A320,320 0 0,1 661,809" fill="none" stroke="white" stroke-width="42" stroke-linecap="butt"/>
+      <path d="M585,647 A320,320 0 0,1 330,790" fill="none" stroke="white" stroke-width="42" stroke-linecap="butt"/>
+      <path d="M432,643 A320,320 0 0,1 181,492" fill="none" stroke="white" stroke-width="42" stroke-linecap="butt"/>
+      <path d="M359,508 A320,320 0 0,1 363,216" fill="none" stroke="white" stroke-width="42" stroke-linecap="butt"/>
+      <path d="M439,377 A320,320 0 0,1 694,235" fill="none" stroke="white" stroke-width="42" stroke-linecap="butt"/>
+      <path d="M592,381 A320,320 0 0,1 843,532" fill="none" stroke="white" stroke-width="42" stroke-linecap="butt"/>
+    </mask>
+  </defs>
+  <g transform="translate(512,512) scale(1.1) translate(-512,-512) rotate(30, 512, 512)">
+    <circle cx="512" cy="512" r="332" fill="currentColor" mask="url(#irisMask)"/>
+    <circle cx="512" cy="512" r="332" fill="none" stroke="currentColor" stroke-width="42"/>
+    <polygon points="672,512 592,651 432,651 352,512 432,373 592,373" fill="none" stroke="currentColor" stroke-width="42"/>
+  </g>
+</svg>

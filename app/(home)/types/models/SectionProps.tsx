@@ -19,6 +19,11 @@ export const Sections: SectionProps[] = [
         gradient: Gradient.EXP
     },
     {
+        name: Section.PROJECTS,
+        href: "#projects",
+        gradient: Gradient.PROJECTS
+    },
+    {
         name: Section.SKILL,
         href: "#page-bottom",
         gradient: Gradient.SKILLS
