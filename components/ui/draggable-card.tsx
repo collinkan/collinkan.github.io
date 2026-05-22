@@ -22,12 +22,23 @@ export const DraggableCardBody = ({
   const y = useMotionValue(0);
   const rafRef = useRef<number | null>(null);
 
-  // Glare follows mouse X for a subtle shine — not a 3D transform, so it
-  // doesn't trigger GPU compositing and doesn't break backdrop-filter.
-  const glareX = useMotionValue(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 100, damping: 20, mass: 0.5 };
+
+  const rotateX = useSpring(
+    useTransform(mouseY, [-300, 300], [20, -20]),
+    springConfig,
+  );
+  const rotateY = useSpring(
+    useTransform(mouseX, [-300, 300], [-20, 20]),
+    springConfig,
+  );
+
   const glareOpacity = useSpring(
-    useTransform(glareX, [-300, 0, 300], [0.12, 0, 0.12]),
-    { stiffness: 100, damping: 20, mass: 0.5 },
+    useTransform(mouseX, [-300, 0, 300], [0.12, 0, 0.12]),
+    springConfig,
   );
 
   useEffect(() => () => {
@@ -47,7 +58,6 @@ export const DraggableCardBody = ({
     bounds: { minX: number; maxX: number; minY: number; maxY: number },
   ) => {
     stopPhysics();
-    // Framer Motion reports velocity in px/s; convert to px/frame at ~60 fps
     let vx = velX / 60;
     let vy = velY / 60;
     const RESTITUTION = 0.6;
@@ -77,6 +87,18 @@ export const DraggableCardBody = ({
     rafRef.current = requestAnimationFrame(step);
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = cardRef.current?.getBoundingClientRect();
+    if (!r) return;
+    mouseX.set(e.clientX - (r.left + r.width / 2));
+    mouseY.set(e.clientY - (r.top + r.height / 2));
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
   return (
     <motion.div
       ref={cardRef}
@@ -85,6 +107,8 @@ export const DraggableCardBody = ({
       dragMomentum={false}
       onDragStart={() => {
         stopPhysics();
+        mouseX.set(0);
+        mouseY.set(0);
         document.body.style.cursor = "grabbing";
       }}
       onDragEnd={(_e, info) => {
@@ -98,7 +122,6 @@ export const DraggableCardBody = ({
         const cx = x.get();
         const cy = y.get();
 
-        // Measure how far the card can travel in each direction right now
         startBounce(info.velocity.x, info.velocity.y, {
           maxX: cx + (cr.right  - ca.right),
           minX: cx - (ca.left   - cr.left),
@@ -107,18 +130,22 @@ export const DraggableCardBody = ({
         });
       }}
       style={{ x, y }}
-      onMouseMove={(e) => {
-        const r = cardRef.current?.getBoundingClientRect();
-        if (r) glareX.set(e.clientX - (r.left + r.width / 2));
-      }}
-      onMouseLeave={() => glareX.set(0)}
-      className={cn("relative overflow-hidden rounded-md p-6 shadow-2xl", className)}
+      className={cn("relative overflow-hidden rounded-md shadow-2xl backdrop-blur-sm", className)}
     >
-      {children}
+      {/* backdrop-blur-sm lives on this outer div (2D-only transform) so it is never
+          broken by the 3D rotateX/rotateY on the inner div below */}
       <motion.div
-        style={{ opacity: glareOpacity }}
-        className="pointer-events-none absolute inset-0 bg-white select-none"
-      />
+        style={{ rotateX, rotateY }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="absolute inset-0 flex flex-col items-center justify-center p-4"
+      >
+        {children}
+        <motion.div
+          style={{ opacity: glareOpacity }}
+          className="pointer-events-none absolute inset-0 bg-white select-none"
+        />
+      </motion.div>
     </motion.div>
   );
 };
@@ -127,7 +154,7 @@ export const DraggableCardContainer = forwardRef<
   HTMLDivElement,
   { className?: string; children?: React.ReactNode }
 >(({ className, children }, ref) => (
-  <div ref={ref} className={cn("", className)}>
+  <div ref={ref} className={cn("[perspective:3000px] relative", className)}>
     {children}
   </div>
 ));

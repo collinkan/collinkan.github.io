@@ -41,8 +41,8 @@ export default function Cards() {
       {items.map((item, index) => (
         <DraggableCardBody key={index} constraintsRef={containerRef} className="hover-glow-card group overflow-hidden relative flex flex-col items-center justify-center w-[15%] aspect-square p-4 rounded-2xl cursor-grab active:cursor-grabbing">
 
-          {/* Glass layer — child so it's not on the animated element */}
-          <div className="absolute inset-0 bg-white/5 backdrop-blur-sm border border-white/10 pointer-events-none" />
+          {/* Glass layer */}
+          <div className="absolute inset-0 bg-white/5 border border-white/10 pointer-events-none" />
 
           {/* Glowing hover effect */}
           <div
