@@ -7,18 +7,21 @@ import { Rajdhani } from "next/font/google";
 const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
 
 const JinuineIcon = ({ className }: { className?: string }) => (
-    <span
-        className={className}
-        style={{
-            display: 'block',
-            backgroundColor: 'currentColor',
-            maskImage: 'url(/jinuine.svg)',
-            WebkitMaskImage: 'url(/jinuine.svg)',
-            maskSize: '132% 132%',
-            maskRepeat: 'no-repeat',
-            maskPosition: 'center',
-        }}
-    />
+    <span className={className} style={{ display: 'block' }}>
+        <span
+            style={{
+                display: 'block',
+                width: '100%',
+                height: '100%',
+                backgroundColor: 'currentColor',
+                maskImage: 'url(/jinuine.svg)',
+                WebkitMaskImage: 'url(/jinuine.svg)',
+                maskSize: '132% 132%',
+                maskRepeat: 'no-repeat',
+                maskPosition: 'center',
+            }}
+        />
+    </span>
 )
 
 export default function Navbar() {
@@ -72,7 +75,7 @@ export default function Navbar() {
                 hidden md:inline-flex h-auto items-center gap-10
                 bg-synthTransparent
                 px-10 py-4 rounded-3xl text-xl text-synthText
-                shadow-[2px_3px_8px_rgba(0,0,0,0.45)]
+                shadow-[2px_3px_8px_rgba(0,0,0,0.22)]
                 [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]"
             >
                 {Sections.map((section, index) => {
