@@ -10,7 +10,7 @@ export default function Projects() {
             title: "April 2026 – Present",
             content: (
                 <div>
-                    <h3 className="text-2xl md:text-3xl font-semibold mb-1 text-white">Founder & Principal Engineer</h3>
+                    <h3 className="text-2xl md:text-3xl font-semibold mb-1 text-white">Principal Engineer</h3>
                     <p className="mb-5 flex items-center gap-2 border-b border-white/10 pb-4 text-lg md:text-xl font-semibold tracking-wide text-synthTeal">
                         <a href="https://jinuine.com" target="_blank" rel="noopener noreferrer" className="pointer-events-auto hover:opacity-70 transition-opacity">
                             Jinuine
