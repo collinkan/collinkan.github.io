@@ -67,3 +67,288 @@
     @apply bg-background text-foreground;
   }
 }
+@layer components {
+  :root {
+    --glass-reflect: 238 150 200; /* soft, desaturated pink reflections */
+    --glass-spec: 255 205 232; /* lighter pink for the hottest highlights */
+  }
+
+  /* Liquid Glass approximation: blur + saturation, tinted fill, specular edge highlights.
+     Override --glass-fill per element to trade translucency for legibility. */
+  .glass {
+    background:
+      linear-gradient(135deg, rgb(var(--glass-reflect) / 0.12) 0%, rgb(var(--glass-reflect) / 0.02) 38%, rgb(var(--glass-reflect) / 0.01) 62%, rgb(var(--glass-reflect) / 0.07) 100%),
+      var(--glass-fill, rgb(46 18 64 / 0.06));
+    -webkit-backdrop-filter: blur(16px) saturate(1.8);
+    backdrop-filter: blur(16px) saturate(1.8);
+    border: 1px solid rgb(var(--glass-reflect) / 0.16);
+    box-shadow:
+      inset 0 1px 0 rgb(var(--glass-reflect) / 0.5),
+      inset 1px 0 0 rgb(var(--glass-reflect) / 0.14),
+      inset 0 14px 18px -14px rgb(var(--glass-reflect) / 0.22),
+      inset 0 -1px 0 rgb(0 0 0 / 0.3),
+      0 10px 32px rgb(0 0 0 / 0.4);
+  }
+
+  /* Split variant for cards that tilt in 3D: backdrop-filter must stay on a flat
+     parent (.glass-blur), while the edges and sheen ride on the rotating child (.glass-face). */
+  .glass-blur {
+    background: var(--glass-fill, rgb(46 18 64 / 0.06));
+    -webkit-backdrop-filter: blur(16px) saturate(1.8);
+    backdrop-filter: blur(16px) saturate(1.8);
+    box-shadow: 0 10px 32px rgb(0 0 0 / 0.4);
+  }
+
+  /* Colorless variant: white highlights and rim instead of pink. */
+  .glass-neutral {
+    --glass-reflect: 255 255 255;
+    --glass-spec: 255 255 255;
+  }
+
+  /* Rim-lit glass for pills and round buttons: a bright specular edge that fades
+     around the shape, plus inner top light and a dark lower lip for thickness. */
+  .glass-pill {
+    position: relative;
+    background:
+      linear-gradient(135deg, rgb(var(--glass-body, var(--glass-reflect)) / 0.14) 0%, rgb(var(--glass-body, var(--glass-reflect)) / 0.03) 45%, rgb(var(--glass-body, var(--glass-reflect)) / 0.02) 60%, rgb(var(--glass-body, var(--glass-reflect)) / 0.1) 100%),
+      var(--pill-fill, transparent);
+    box-shadow:
+      inset 0 2px 6px rgb(var(--glass-body, var(--glass-reflect)) / 0.28),
+      inset 0 -3px 8px rgb(0 0 0 / 0.35),
+      0 8px 20px rgb(0 0 0 / 0.4);
+  }
+
+  .glass-pill::before,
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    /* Specular rim: hot spots at the upper-left and lower-right, nearly dark elsewhere */
+    background: conic-gradient(
+      from 0deg at 50% 50%,
+      rgb(var(--glass-reflect) / 0.16) 0deg,
+      rgb(var(--glass-reflect) / 0.05) 55deg,
+      rgb(var(--glass-spec) / 0.85) 118deg,
+      rgb(var(--glass-reflect) / 0.12) 160deg,
+      rgb(var(--glass-reflect) / 0.04) 215deg,
+      rgb(var(--glass-reflect) / 0.2) 265deg,
+      rgb(var(--glass-spec) / 0.95) 305deg,
+      rgb(var(--glass-reflect) / 0.3) 335deg,
+      rgb(var(--glass-reflect) / 0.16) 360deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+  }
+
+  /* Hover glow for round pill buttons: the whole button lights up, rim included. */
+  .glass-glow {
+    transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .glass-glow:hover,
+  .glass-glow:focus-visible {
+    box-shadow:
+      inset 0 2px 6px rgb(var(--glass-reflect) / 0.28),
+      inset 0 -3px 8px rgb(0 0 0 / 0.35),
+      inset 0 0 16px rgb(45 226 230 / 0.35),
+      0 0 22px 2px rgb(45 226 230 / 0.55);
+  }
+
+  .glass-glow:hover::before,
+  .glass-glow:focus-visible::before {
+    background: linear-gradient(135deg, rgb(170 250 255 / 0.95), rgb(45 226 230 / 0.55) 50%, rgb(170 250 255 / 0.9));
+  }
+
+  /* Frosted panel: the pill's rim and inner light, plus a light frost (blur + tint).
+     For tilting cards, use .glass-frost on the flat parent and .glass-pill on the tilting face. */
+  .glass-panel,
+  .glass-frost {
+    -webkit-backdrop-filter: blur(8px) saturate(1.7);
+    backdrop-filter: blur(8px) saturate(1.7);
+  }
+
+  .glass-frost {
+    background: var(--glass-fill, rgb(46 18 64 / 0.13));
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.4);
+  }
+
+  .glass-panel {
+    position: relative;
+    background:
+      linear-gradient(135deg, rgb(var(--glass-reflect) / 0.14) 0%, rgb(var(--glass-reflect) / 0.03) 45%, rgb(var(--glass-reflect) / 0.02) 60%, rgb(var(--glass-reflect) / 0.1) 100%),
+      var(--glass-fill, rgb(46 18 64 / 0.13));
+    box-shadow:
+      inset 0 2px 6px rgb(var(--glass-reflect) / 0.28),
+      inset 0 -3px 8px rgb(0 0 0 / 0.35),
+      0 8px 20px rgb(0 0 0 / 0.4);
+  }
+
+  .glass-face {
+    background: linear-gradient(135deg, rgb(var(--glass-reflect) / 0.14) 0%, rgb(var(--glass-reflect) / 0.02) 40%, rgb(var(--glass-reflect) / 0.01) 62%, rgb(var(--glass-reflect) / 0.08) 100%);
+    border: 1px solid rgb(var(--glass-reflect) / 0.2);
+    box-shadow:
+      inset 0 1px 0 rgb(var(--glass-reflect) / 0.5),
+      inset 1px 0 0 rgb(var(--glass-reflect) / 0.14),
+      inset 0 14px 18px -14px rgb(var(--glass-reflect) / 0.22),
+      inset 0 -1px 0 rgb(0 0 0 / 0.3);
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .glass,
+    .glass-blur,
+    .glass-panel,
+    .glass-frost {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: #2a1236;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    .glass,
+    .glass-blur,
+    .glass-panel,
+    .glass-frost {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: #2a1236;
+      border-color: rgb(var(--glass-reflect) / 0.6);
+    }
+  }
+}
+
+/* Synthwave floor: one line texture, a cursor glow, and click ripples, all in plane space. */
+@property --ripple-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@layer components {
+  .grid-plane {
+    --cell: 82px;
+    --line: #2a3459;
+    --glow: #2de2e6;
+    background: linear-gradient(to bottom, #24124a 0%, #0d0221 30%);
+  }
+
+  /* Far rows fade out so they never shimmer; the floor itself keeps a crisp horizon. */
+  .grid-fade {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%);
+  }
+
+  .grid-lines,
+  .grid-glow,
+  .grid-ripple {
+    background-size: var(--cell) var(--cell);
+    background-position: center top;
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, var(--line) 0 2px, transparent 2px),
+      linear-gradient(to bottom, var(--line) 0 2px, transparent 2px);
+  }
+
+  .grid-glow {
+    background-image:
+      linear-gradient(to right, var(--glow) 0 2px, transparent 2px),
+      linear-gradient(to bottom, var(--glow) 0 2px, transparent 2px);
+    -webkit-mask-image: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+    mask-image: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 100%);
+    filter: drop-shadow(0 0 6px rgb(45 226 230 / 0.7));
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
+  }
+
+  .grid-plane[data-hover="true"] .grid-glow {
+    opacity: 1;
+  }
+
+  .grid-ripple {
+    background-image:
+      linear-gradient(to right, var(--glow) 0 2px, transparent 2px),
+      linear-gradient(to bottom, var(--glow) 0 2px, transparent 2px);
+    -webkit-mask-image: radial-gradient(
+      circle at var(--rx) var(--ry),
+      transparent calc(var(--ripple-r) - 220px),
+      #000 var(--ripple-r),
+      transparent calc(var(--ripple-r) + 24px)
+    );
+    mask-image: radial-gradient(
+      circle at var(--rx) var(--ry),
+      transparent calc(var(--ripple-r) - 220px),
+      #000 var(--ripple-r),
+      transparent calc(var(--ripple-r) + 24px)
+    );
+    filter: drop-shadow(0 0 6px rgb(45 226 230 / 0.7));
+    animation: grid-ripple 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .grid-ripple {
+      display: none;
+    }
+  }
+}
+
+@keyframes grid-ripple {
+  from {
+    --ripple-r: 0px;
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  to {
+    --ripple-r: 1500px;
+    opacity: 0;
+  }
+}
+
+/* Synthwave type: chrome headings (and the wordmark) with a cyan/pink glow. */
+@layer components {
+  .synth-wordmark {
+    transition: filter 0.3s ease-out;
+  }
+
+  .synth-wordmark:hover {
+    filter: drop-shadow(2px 0 0 rgb(45 226 230 / 0.9)) drop-shadow(0 0 16px rgb(45 226 230 / 0.7));
+  }
+
+  .synth-heading {
+    background: linear-gradient(180deg, #ffffff 0%, #eafcff 50%, #a6eef4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(2px 0 0 rgb(45 226 230 / 0.45)) drop-shadow(0 0 14px rgb(45 226 230 / 0.25));
+  }
+}
+
+/* The sun's bloom breathes slowly; the glow sits behind the disc so it never touches the stripes. */
+@keyframes sun-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(0.9);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.12);
+  }
+}
+
+.sun-bloom {
+  animation: sun-breathe 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun-bloom {
+    animation: none;
+  }
+}

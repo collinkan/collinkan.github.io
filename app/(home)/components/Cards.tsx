@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import { RotateCcw } from "lucide-react";
 import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
 
 import { Rajdhani } from "next/font/google";
@@ -7,6 +8,14 @@ const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "6
 export default function Cards() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cachedCards = useRef<NodeListOf<Element> | null>(null);
+  const [movedCards, setMovedCards] = useState<Set<number>>(new Set());
+  const [resetSignal, setResetSignal] = useState(0);
+  const hasMoved = movedCards.size > 0;
+
+  const resetCards = () => {
+    setResetSignal((n) => n + 1);
+    setMovedCards(new Set());
+  };
 
   useEffect(() => {
     cachedCards.current = document.querySelectorAll('.hover-glow-card');
@@ -37,16 +46,32 @@ export default function Cards() {
   ];
 
   return (
+    <>
+      <div className={`relative z-20 flex w-full items-center gap-4 px-6 pt-10 text-synthText pointer-events-none sm:px-12 md:px-20 ${rajdhani.className}`}>
+        <h2 className="text-3xl md:text-5xl font-semibold synth-heading">Skills</h2>
+        <button
+          type="button"
+          onClick={resetCards}
+          disabled={!hasMoved}
+          aria-label="Reset card positions"
+          tabIndex={hasMoved ? 0 : -1}
+          className={`glass-pill pointer-events-auto flex h-10 items-center gap-2 rounded-full px-4 text-sm font-medium transition-all duration-300 hover:text-synthTeal ${hasMoved ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-1 opacity-0"}`}
+        >
+          <RotateCcw className="h-4 w-4" strokeWidth={1.75} />
+          Reset
+        </button>
+      </div>
+
     <DraggableCardContainer ref={containerRef} className={`relative flex flex-wrap py-20 px-10 min-h-[50vh] items-center justify-center overflow-clip gap-x-5 gap-y-10 z-10 ${rajdhani.className}`}>
       {items.map((item, index) => (
-        <DraggableCardBody key={index} constraintsRef={containerRef} className="hover-glow-card group overflow-hidden relative flex flex-col items-center justify-center w-[15%] aspect-square p-4 rounded-2xl cursor-grab active:cursor-grabbing">
+        <DraggableCardBody key={index} constraintsRef={containerRef} resetSignal={resetSignal} onMove={() => setMovedCards((prev) => (prev.has(index) ? prev : new Set(prev).add(index)))} className="hover-glow-card glass-frost group overflow-hidden relative flex flex-col items-center justify-center w-[15%] aspect-square p-4 rounded-2xl cursor-grab active:cursor-grabbing">
 
-          {/* Glass layer */}
-          <div className="absolute inset-0 bg-white/5 border border-white/10 pointer-events-none" />
+          {/* Tilting glass face: edges and sheen rotate with the card */}
+          <div className="glass-pill pointer-events-none absolute inset-0 rounded-2xl [box-shadow:inset_0_2px_6px_rgb(var(--glass-reflect)/0.28),inset_0_-3px_8px_rgb(0_0_0/0.35)]" />
 
           {/* Glowing hover effect */}
           <div
-            className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100 z-10"
+            className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition duration-300 group-hover:opacity-100 z-10"
             style={{
               background: `radial-gradient(250px circle at var(--mouse-x) var(--mouse-y), rgba(0, 255, 255, 0.15), transparent 40%)`
             }}
@@ -63,5 +88,6 @@ export default function Cards() {
         </DraggableCardBody>
       ))}
     </DraggableCardContainer>
+    </>
   );
 }
