@@ -6,21 +6,30 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
+  useReducedMotion,
+  animate,
 } from "motion/react";
 
 export const DraggableCardBody = ({
   className,
   children,
   constraintsRef,
+  resetSignal = 0,
+  onMove,
 }: {
   className?: string;
   children?: React.ReactNode;
   constraintsRef?: React.RefObject<HTMLDivElement | null>;
+  /** Bump this number to snap the card back to its default position. */
+  resetSignal?: number;
+  /** Called when the card starts being dragged. */
+  onMove?: () => void;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rafRef = useRef<number | null>(null);
+  const reduceMotion = useReducedMotion();
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -28,16 +37,16 @@ export const DraggableCardBody = ({
   const springConfig = { stiffness: 100, damping: 20, mass: 0.5 };
 
   const rotateX = useSpring(
-    useTransform(mouseY, [-300, 300], [20, -20]),
+    useTransform(mouseY, [-110, 110], [22, -22]),
     springConfig,
   );
   const rotateY = useSpring(
-    useTransform(mouseX, [-300, 300], [-20, 20]),
+    useTransform(mouseX, [-110, 110], [-22, 22]),
     springConfig,
   );
 
   const glareOpacity = useSpring(
-    useTransform(mouseX, [-300, 0, 300], [0.12, 0, 0.12]),
+    useTransform(mouseX, [-110, 0, 110], [0.18, 0, 0.18]),
     springConfig,
   );
 
@@ -52,12 +61,33 @@ export const DraggableCardBody = ({
     }
   };
 
+  const lastReset = useRef(resetSignal);
+  useEffect(() => {
+    if (resetSignal === lastReset.current) return;
+    lastReset.current = resetSignal;
+    stopPhysics();
+    if (reduceMotion) {
+      x.set(0);
+      y.set(0);
+      return;
+    }
+    const spring = { type: "spring" as const, stiffness: 180, damping: 20, mass: 0.8 };
+    const ax = animate(x, 0, spring);
+    const ay = animate(y, 0, spring);
+    return () => {
+      ax.stop();
+      ay.stop();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetSignal]);
+
   const startBounce = (
     velX: number,
     velY: number,
     bounds: { minX: number; maxX: number; minY: number; maxY: number },
   ) => {
     stopPhysics();
+    if (reduceMotion) return;
     let vx = velX / 60;
     let vy = velY / 60;
     const RESTITUTION = 0.6;
@@ -107,6 +137,7 @@ export const DraggableCardBody = ({
       dragMomentum={false}
       onDragStart={() => {
         stopPhysics();
+        onMove?.();
         mouseX.set(0);
         mouseY.set(0);
         document.body.style.cursor = "grabbing";
@@ -130,7 +161,7 @@ export const DraggableCardBody = ({
         });
       }}
       style={{ x, y }}
-      className={cn("relative overflow-hidden rounded-md shadow-2xl backdrop-blur-sm", className)}
+      className={cn("relative overflow-hidden rounded-md", className)}
     >
       {/* backdrop-blur-sm lives on this outer div (2D-only transform) so it is never
           broken by the 3D rotateX/rotateY on the inner div below */}
@@ -138,12 +169,12 @@ export const DraggableCardBody = ({
         style={{ rotateX, rotateY }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="absolute inset-0 flex flex-col items-center justify-center p-4"
+        className="absolute inset-0 flex flex-col items-center justify-center rounded-[inherit] p-4"
       >
         {children}
         <motion.div
           style={{ opacity: glareOpacity }}
-          className="pointer-events-none absolute inset-0 bg-white select-none"
+          className="pointer-events-none absolute inset-0 rounded-[inherit] bg-white select-none"
         />
       </motion.div>
     </motion.div>
@@ -154,7 +185,7 @@ export const DraggableCardContainer = forwardRef<
   HTMLDivElement,
   { className?: string; children?: React.ReactNode }
 >(({ className, children }, ref) => (
-  <div ref={ref} className={cn("[perspective:3000px] relative", className)}>
+  <div ref={ref} className={cn("[perspective:1400px] relative", className)}>
     {children}
   </div>
 ));

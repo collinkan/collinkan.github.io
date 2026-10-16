@@ -86,16 +86,10 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "cell-ripple": {
-          "0%":   { borderColor: "#2de2e600", boxShadow: "0 0 0px #2de2e600, inset 0 0 0px #2de2e600" },
-          "50%":  { borderColor: "#2de2e6",   boxShadow: "0 0 10px #2de2e644, inset 0 0 8px #2de2e633" },
-          "100%": { borderColor: "#2de2e600", boxShadow: "0 0 0px #2de2e600, inset 0 0 0px #2de2e600" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "cell-ripple": "cell-ripple var(--duration, 200ms) ease-out var(--delay, 0ms) 1 normal none",
       },
     },
   },

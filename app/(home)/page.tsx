@@ -1,5 +1,6 @@
 "use client"
 
+import { MotionConfig } from "motion/react"
 import Navbar from "./components/Navbar"
 import HeroSection from "./components/HeroSection"
 import Sunset from "./components/Sunset"
@@ -14,6 +15,7 @@ const rajdhani = Rajdhani({ subsets: ["latin"], weight: ["300", "400", "500", "6
 
 export default function Page() {
   return (
+    <MotionConfig reducedMotion="user">
     <div className={`min-h-[200vh] bg-gradient-to-b from-synthBG to-black ${rajdhani.className}`}>
       <div>
         <Navbar />
@@ -24,15 +26,10 @@ export default function Page() {
         <Experience />
         <Projects />
 
-        <div className="w-full px-6 sm:px-12 md:px-20 text-synthText pointer-events-none z-20 relative">
-          <div className="max-w-7xl pt-10">
-            <h2 className="text-3xl md:text-5xl font-semibold text-synthText">Skills</h2>
-          </div>
-        </div>
-
         <Cards />
         <div id="page-bottom" />
       </div>
     </div >
+    </MotionConfig>
   )
 }
